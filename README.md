@@ -16,7 +16,7 @@
 
 ## Level 1 — Basic Structural Cleaning
 
-## **Task 1: Inspect the Dataset**
+## Task 1: Inspect the Dataset
 
 ### Inspected the dataset to understand its structure and memory usage before starting the cleaning process.
 
@@ -90,7 +90,7 @@
 **Result:** Empty text values are represented as missing values, making missing-data detection and handling easier.
 
 # LEVEL 2 — Missing Values
-### Task 5: Identify Missing Values
+## Task 5: Identify Missing Values
 
 Identified and counted missing values in each column using Pandas.
 
@@ -150,7 +150,7 @@ result
 
 **Result:** Created a summary table showing the missing-value count and missing percentage for each column, helping identify columns with incomplete data.
 
-### Task 7: Replace Fake Missing Values
+## Task 7: Replace Fake Missing Values
 
 ### Replaced predefined text markers representing missing data with actual `NaN` values.
 
