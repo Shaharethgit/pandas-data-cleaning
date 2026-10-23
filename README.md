@@ -14,7 +14,7 @@ This project demonstrates practical data cleaning using Pandas.
 
 ## Tasks Completed
 
-## Level 1 — Basic Structural Cleaning
+# Level 1 — Basic Structural Cleaning
 
 ## **Task 1: Inspect the Dataset**
 
@@ -88,3 +88,22 @@ Identified empty strings and whitespace-only strings across all columns and repl
 | `"  "` | `NaN` |
 
 **Result:** Empty text values are represented as missing values, making missing-data detection and handling easier.
+
+# LEVEL 2 — Missing Values
+## Task 5: Identify Missing Values
+
+Identified and counted missing values in each column using Pandas.
+
+**Checks performed:**
+- Used `df.isna()` to identify missing values.
+- Used `.sum()` to calculate the number of missing values in each column.
+- Stored the results in `missing_values` for inspection.
+
+**Code:**
+
+```python
+missing_values = df.isna().sum()
+missing_values
+```
+
+**Result:** Obtained the missing-value count for every column to understand the extent of missing data before handling it.
