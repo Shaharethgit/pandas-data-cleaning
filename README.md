@@ -322,4 +322,61 @@ Invalid values are converted to `NaT` using `errors="coerce"`.
 
 **Result:** The `join_date` column is converted to Pandas datetime format, ready for date-based analysis.
 
+## 🟡 LEVEL 4 — Text Cleaning
+
+### Task 14 — Standardize Names
+
+Convert names into proper case and remove multiple spaces between words.
+
+| **Original Value** | **Cleaned Value** |
+|---|---|
+| `"JOHN SMITH"` | `"John Smith"` |
+| `"john smith"` | `"John Smith"` |
+| `"John Smith"` | `"John Smith"` |
+| `"mohammed  hassan"` | `"Mohammed Hassan"` |
+| `"Lisa   Thomas"` | `"Lisa Thomas"` |
+
+**Methods Used:**
+- `.str.title()` — Converts the first letter of each word to uppercase.
+- `.str.replace()` — Uses a regular expression to clean whitespace.
+
+**Result:** Names are standardized into proper case with consistent spacing.
+
+**Note:** To remove multiple spaces between words and leading/trailing spaces, use:
+
+```python
+df["name"] = df["name"].str.title()
+df["name"] = df["name"].str.replace(r"\s+", " ", regex=True).str.strip()
+```
+## Task 15 — Clean Department
+
+### Standardize department names by converting inconsistent capitalization and naming variations into consistent department names.
+
+**Expected Output:**
+
+| **Original Value** | **Cleaned Value** |
+|---|---|
+| `IT` | `IT` |
+| `it` | `IT` |
+| `IT Department` | `IT` |
+| `HR` | `HR` |
+| `Human Resources` | `HR` |
+| `Human Resource` | `HR` |
+| `sales` | `Sales` |
+| `Sales` | `Sales` |
+| `SALES` | `Sales` |
+| `Finance` | `Finance` |
+| `FINANCE` | `Finance` |
+| `finance` | `Finance` |
+| `Operations` | `Operations` |
+| `operations` | `Operations` |
+| `Marketing` | `Marketing` |
+| `marketing` | `Marketing` |
+
+**Methods Used:**
+- `.str.lower()` — Converts department names to lowercase before mapping.
+- `.map()` — Maps inconsistent department names to standardized values.
+
+**Result:** Department names are standardized into consistent categories, ready for grouping and analysis.
+
 
