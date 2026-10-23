@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project demonstrates practical data cleaning using Pandas.
+##This project demonstrates practical data cleaning using Pandas.
 
 ## Tools Used
 
@@ -14,11 +14,11 @@ This project demonstrates practical data cleaning using Pandas.
 
 ## Tasks Completed
 
-# Level 1 — Basic Structural Cleaning
+## Level 1 — Basic Structural Cleaning
 
 ## **Task 1: Inspect the Dataset**
 
-Inspected the dataset to understand its structure and memory usage before starting the cleaning process.
+### Inspected the dataset to understand its structure and memory usage before starting the cleaning process.
 
 **Checks performed:**
 - Found the number of rows and columns using `df.shape`.
@@ -31,7 +31,7 @@ Inspected the dataset to understand its structure and memory usage before starti
 
 ## Task 2: Clean Column Names
 
-Standardized column names to make them consistent and easier to use in data analysis.
+### Standardized column names to make them consistent and easier to use in data analysis.
 
 **Cleaning performed:**
 - Removed leading and trailing spaces using `.str.strip()`.
@@ -51,7 +51,7 @@ Standardized column names to make them consistent and easier to use in data anal
 
 ## Task 3: Remove Leading and Trailing Whitespace
 
-Cleaned whitespace from all string columns to ensure consistent text formatting.
+### Cleaned whitespace from all string columns to ensure consistent text formatting.
 
 **Cleaning performed:**
 - Selected string-type columns using `df.select_dtypes(include="str")`.
@@ -71,7 +71,7 @@ Cleaned whitespace from all string columns to ensure consistent text formatting.
 
 ## Task 4: Find Completely Empty Strings
 
-Identified empty strings and whitespace-only strings across all columns and replaced them with `NaN`.
+### Identified empty strings and whitespace-only strings across all columns and replaced them with `NaN`.
 
 **Cleaning performed:**
 - Iterated through all columns using `df.columns`.
@@ -124,3 +124,51 @@ missing_values
 - Other columns contain between 1 and 8 missing values.
 
 **Result:** Identified the extent of missing data in each column before deciding how to handle it.
+
+## Task 6: Calculate Missing-Value Percentages
+
+### Calculated the number and percentage of missing values in each column to assess data completeness.
+
+**Code:**
+
+```python
+missing_percentage = df.isna().mean() * 100.0
+
+result = pd.DataFrame({
+    "missing_count": missing_values,
+    "missing_percentage": missing_percentage
+})
+
+result = result.reset_index(names="Column")
+result
+```
+
+**Checks performed:**
+- Calculated missing-value percentages using `df.isna().mean() * 100.0`.
+- Combined missing counts and percentages into a single DataFrame.
+- Converted the column-name index into a regular `Column` column.
+
+**Result:** Created a summary table showing the missing-value count and missing percentage for each column, helping identify columns with incomplete data.
+
+### Task 7: Replace Fake Missing Values
+
+### Replaced predefined text markers representing missing data with actual `NaN` values.
+
+**Code:**
+
+```python
+fake_missing = ["N/A", "NULL", "unknown", "Unknown", "", "null"]
+
+for cl in df.columns:
+    df[cl] = df[cl].replace(fake_missing, np.nan)
+
+df.head(10)
+```
+
+**Cleaning performed:**
+- Defined common fake missing-value markers in a list.
+- Replaced matching values across all columns with `np.nan`.
+- Included different capitalization variants such as `"NULL"` and `"null"`.
+- Displayed the first 10 rows to inspect the cleaned data.
+
+**Result:** Standardized the specified fake missing-value markers into actual missing values, making them easier to identify and analyze using Pandas.
