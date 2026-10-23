@@ -14,7 +14,7 @@
 
 ## Tasks Completed
 
-## Level 1 — Basic Structural Cleaning
+# Level 1 — Basic Structural Cleaning
 
 ## Task 1: Inspect the Dataset
 
@@ -233,7 +233,7 @@ for cl in missing_columns:
 | 32 | 0 |
 
 **Result:** Missing values are represented by `1`, while non-missing values are represented by `0`. These indicators make missing-data patterns easier to analyze.
-
+# Level 3 — Basic Structural Cleaning
 ## Task 10: Convert Age to Numeric
 
 ### Converted the `age` column to a numeric data type and handled invalid values.
@@ -273,7 +273,7 @@ df["salary"] = df["salary"].str.replace(',', "")
 df["salary"] = pd.to_numeric(df["salary"], errors="coerce")
 ```
 
-**Examples:**
+
 
 | Original Value | Converted Value |
 |---|---:|
@@ -283,4 +283,43 @@ df["salary"] = pd.to_numeric(df["salary"], errors="coerce")
 | `"8,000"` | 8000 |
 
 **Result:** Converted salary values into numeric data suitable for calculations and analysis. Invalid values are converted to `NaN`.
+
+### Task 12 — Convert Bonus to Numeric
+
+Clean the `bonus` column by removing currency symbols (`$`) and commas, then convert the values to a numeric data type using `pd.to_numeric()`.
+
+Invalid values such as `"unknown"` are converted to `NaN` using `errors="coerce"`.
+
+**Examples:**
+
+| **Original Value** | **Converted Value** |
+| ------------------ | ------------------: |
+| `"$750"`           | 750                 |
+| `"1,000"`          | 1000                |
+| `"-200"`           | -200                |
+| `"unknown"`        | `NaN`               |
+
+
+### Task 13 — Convert Join Date
+
+Convert valid date values into Pandas datetime format using `pd.to_datetime()`.
+
+Invalid values are converted to `NaT` using `errors="coerce"`.
+
+| **Original Value** | **Converted Value** |
+|---|---|
+| `"2020-01-15"` | `2020-01-15` |
+| `"15/02/2021"` | `2021-02-15` |
+| `"invalid"` | `NaT` |
+| `"2020/13/01"` | `NaT` |
+| `"N/A"` | `NaT` |
+
+**Methods Used:**
+- `pd.to_datetime()` — Converts valid date strings into datetime values.
+- `errors="coerce"` — Converts invalid dates into `NaT`.
+- `format="mixed"` — Allows Pandas to infer different date formats.
+- `dayfirst=True` — Interprets dates with the day before the month when applicable.
+
+**Result:** The `join_date` column is converted to Pandas datetime format, ready for date-based analysis.
+
 
