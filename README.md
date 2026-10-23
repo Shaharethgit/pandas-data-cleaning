@@ -14,9 +14,9 @@ This project demonstrates practical data cleaning using Pandas.
 
 ## Tasks Completed
 
-### Level 1 — Basic Structural Cleaning
+## Level 1 — Basic Structural Cleaning
 
-**Task 1: Inspect the Dataset**
+## **Task 1: Inspect the Dataset**
 
 Inspected the dataset to understand its structure and memory usage before starting the cleaning process.
 
@@ -29,7 +29,7 @@ Inspected the dataset to understand its structure and memory usage before starti
 - Displayed the first five rows using `df.head(5)`.
 - Displayed the last five rows using `df.tail(5)`.
 
-#### Task 2: Clean Column Names
+## Task 2: Clean Column Names
 
 Standardized column names to make them consistent and easier to use in data analysis.
 
@@ -49,7 +49,7 @@ Standardized column names to make them consistent and easier to use in data anal
 
 **Result:** All column names follow a consistent lowercase naming convention with underscores.
 
-#### Task 3: Remove Leading and Trailing Whitespace
+## Task 3: Remove Leading and Trailing Whitespace
 
 Cleaned whitespace from all string columns to ensure consistent text formatting.
 
@@ -67,3 +67,24 @@ Cleaned whitespace from all string columns to ensure consistent text formatting.
 | `"  Sales    Team  "` | `"Sales Team"` |
 
 **Result:** Text values have consistent spacing, making the dataset cleaner for further analysis.
+
+
+## Task 4: Find Completely Empty Strings
+
+Identified empty strings and whitespace-only strings across all columns and replaced them with `NaN`.
+
+**Cleaning performed:**
+- Iterated through all columns using `df.columns`.
+- Used the regular expression `r"^\s*$"` to identify empty strings and strings containing only whitespace.
+- Replaced matching values with `np.nan`.
+- Displayed the first 10 rows using `df.head(10)` to inspect the result.
+
+**Examples:**
+
+| Before | After |
+|---|---|
+| `""` | `NaN` |
+| `"   "` | `NaN` |
+| `"  "` | `NaN` |
+
+**Result:** Empty text values are represented as missing values, making missing-data detection and handling easier.
