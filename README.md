@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-##This project demonstrates practical data cleaning using Pandas.
+## This project demonstrates practical data cleaning using Pandas.
 
 ## Tools Used
 
@@ -142,6 +142,29 @@ result = pd.DataFrame({
 result = result.reset_index(names="Column")
 result
 ```
+**Results:**
+
+| Column | Missing Count | Missing Percentage |
+|---|---:|---:|
+| employee_id | 0 | 0.0% |
+| name | 1 | 0.2% |
+| department | 1 | 0.2% |
+| age | 1 | 0.2% |
+| salary | 1 | 0.2% |
+| bonus | 37 | 7.4% |
+| join_date | 7 | 1.4% |
+| email | 8 | 1.6% |
+| phone | 4 | 0.8% |
+| gender | 27 | 5.4% |
+| status | 26 | 5.2% |
+
+**Key observations:**
+- `bonus` has the highest missing percentage at **7.4%**.
+- `gender` has **5.4%** missing values, while `status` has **5.2%**.
+- `employee_id` has **no missing values**.
+- The remaining columns have missing percentages ranging from **0.2% to 1.6%**.
+
+**Result:** Measured data completeness for each column using both missing counts and percentages.
 
 **Checks performed:**
 - Calculated missing-value percentages using `df.isna().mean() * 100.0`.
@@ -172,3 +195,92 @@ df.head(10)
 - Displayed the first 10 rows to inspect the cleaned data.
 
 **Result:** Standardized the specified fake missing-value markers into actual missing values, making them easier to identify and analyze using Pandas.
+
+## Task 8: Decide How to Handle Missing Values
+
+### Reviewed the missing-value handling strategy and postponed filling or removing missing values until the other cleaning tasks are completed.
+
+**Reason:** Filling missing values too early could affect missing-value indicators and subsequent data-cleaning steps.
+
+**Planned approach:** Decide whether to fill, retain, or remove missing values based on the meaning of each column and the analysis requirements.
+
+
+## Task 9: Create Missing Indicators
+
+### Created binary indicator columns to identify missing values in selected fields.
+
+**Code:**
+
+```python
+missing_columns = ['age', 'salary', 'email', 'phone']
+
+for cl in missing_columns:
+    df[cl + "_missing"] = df[cl].isna().astype("int")
+```
+
+**Indicator columns created:**
+- `age_missing`
+- `salary_missing`
+- `email_missing`
+- `phone_missing`
+
+**Example:**
+
+| age | age_missing |
+|---:|---:|
+| 25 | 0 |
+| NaN | 1 |
+| 32 | 0 |
+
+**Result:** Missing values are represented by `1`, while non-missing values are represented by `0`. These indicators make missing-data patterns easier to analyze.
+
+## Task 10: Convert Age to Numeric
+
+### Converted the `age` column to a numeric data type and handled invalid values.
+
+**Code:**
+
+```python
+df["age"] = pd.to_numeric(df["age"], errors="coerce")
+```
+
+**Cleaning performed:**
+- Converted valid numeric strings into numeric values.
+- Used `errors="coerce"` to replace invalid values with `NaN`.
+- Displayed the first 10 rows to inspect the results.
+
+**Examples:**
+
+| Before | After |
+|---|---:|
+| `"25"` | `25` |
+| `" 30 "` | `30` |
+| `"35"` | `35` |
+| `"twenty-eight"` | `NaN` |
+| `"N/A"` | `NaN` |
+
+**Result:** The `age` column contains numeric values where conversion is possible, while invalid values are represented as missing data.
+
+## Task 11: Convert Salary to Numeric
+
+### Cleaned the `salary` column by removing currency symbols and thousands separators, then converted the values to a numeric data type.
+
+**Code:**
+
+```python
+df["salary"] = df["salary"].str.replace('$', "")
+df["salary"] = df["salary"].str.replace(',', "")
+df["salary"] = pd.to_numeric(df["salary"], errors="coerce")
+```
+
+**Examples:**
+
+| Original Value | Converted Value |
+|---|---:|
+| `"$5,000"` | 5000 |
+| `"6000"` | 6000 |
+| `"7,500.50"` | 7500.50 |
+| `"8,000"` | 8000 |
+
+**Result:** Converted salary values into numeric data suitable for calculations and analysis. Invalid values are converted to `NaN`.
+
