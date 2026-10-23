@@ -90,14 +90,9 @@ Identified empty strings and whitespace-only strings across all columns and repl
 **Result:** Empty text values are represented as missing values, making missing-data detection and handling easier.
 
 # LEVEL 2 — Missing Values
-## Task 5: Identify Missing Values
+### Task 5: Identify Missing Values
 
 Identified and counted missing values in each column using Pandas.
-
-**Checks performed:**
-- Used `df.isna()` to identify missing values.
-- Used `.sum()` to calculate the number of missing values in each column.
-- Stored the results in `missing_values` for inspection.
 
 **Code:**
 
@@ -106,4 +101,26 @@ missing_values = df.isna().sum()
 missing_values
 ```
 
-**Result:** Obtained the missing-value count for every column to understand the extent of missing data before handling it.
+**Results:**
+
+| Column | Missing Values |
+|---|---:|
+| employee_id | 0 |
+| name | 1 |
+| department | 1 |
+| age | 1 |
+| salary | 1 |
+| bonus | 37 |
+| join_date | 7 |
+| email | 8 |
+| phone | 4 |
+| gender | 27 |
+| status | 26 |
+
+**Key observations:**
+- `employee_id` contains no missing values.
+- `bonus` has the highest number of missing values, with 37.
+- `gender` has 27 missing values, while `status` has 26.
+- Other columns contain between 1 and 8 missing values.
+
+**Result:** Identified the extent of missing data in each column before deciding how to handle it.
