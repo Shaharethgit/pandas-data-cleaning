@@ -28,3 +28,42 @@ Inspected the dataset to understand its structure and memory usage before starti
 - Checked detailed memory usage, including text data, using `df.info(memory_usage="deep")`.
 - Displayed the first five rows using `df.head(5)`.
 - Displayed the last five rows using `df.tail(5)`.
+
+#### Task 2: Clean Column Names
+
+Standardized column names to make them consistent and easier to use in data analysis.
+
+**Cleaning performed:**
+- Removed leading and trailing spaces using `.str.strip()`.
+- Converted column names to lowercase using `.str.lower()`.
+- Replaced whitespace characters with underscores using `.str.replace(r"\s+", "_", regex=True)`.
+
+**Example:**
+
+| Original Column Name | Cleaned Column Name |
+|---|---|
+| ` Employee ID ` | `employee_id` |
+| `NAME` | `name` |
+| `Department` | `department` |
+| `Join Date` | `join_date` |
+
+**Result:** All column names follow a consistent lowercase naming convention with underscores.
+
+#### Task 3: Remove Leading and Trailing Whitespace
+
+Cleaned whitespace from all string columns to ensure consistent text formatting.
+
+**Cleaning performed:**
+- Selected string-type columns using `df.select_dtypes(include="str")`.
+- Removed leading and trailing whitespace using `.str.strip()`.
+- Replaced consecutive whitespace characters with a single space using `.str.replace(r"\s+", " ", regex=True)`.
+
+**Example:**
+
+| Before | After |
+|---|---|
+| `"  John  "` | `"John"` |
+| `"Mary   Smith"` | `"Mary Smith"` |
+| `"  Sales    Team  "` | `"Sales Team"` |
+
+**Result:** Text values have consistent spacing, making the dataset cleaner for further analysis.
