@@ -1,4 +1,4 @@
-# Pandas Data Cleaning Project
+# Python Pandas Data Cleaning
 
 ## Project Overview
 
@@ -609,6 +609,131 @@ df["bonus_valid"] = df["bonus"] >= 0
 - Marked non-negative bonuses as `True` and negative bonuses as `False`.
 
 **Result:** Invalid bonus values are identified without modifying or deleting the original values.
+
+## 🟠 LEVEL 8 — Outlier Detection
+## Task 26 — Detect Salary Outliers Using IQR
+
+**Objective:   Identify unusually low or high salaries using the Interquartile Range (IQR) method.**
+
+**Approach:**
+- Calculated the first quartile (Q1) using the 25th percentile.
+- Calculated the third quartile (Q3) using the 75th percentile.
+- Calculated the IQR as the difference between Q3 and Q1.
+- Calculated the lower and upper outlier boundaries.
+- Created a new column named `salary_outlier` to identify potential outliers.
+
+**Formulas:**
+- `IQR = Q3 - Q1`
+- `Lower Boundary = Q1 - (1.5 × IQR)`
+- `Upper Boundary = Q3 + (1.5 × IQR)`
+
+**Result:**
+- `True` — salary is below the lower boundary or above the upper boundary.
+- `False` — salary is within the boundaries.
+
+**Potential outliers were identified without immediately deleting or modifying the original salary values.**
+
+## 🟠 LEVEL 8 — Outlier Detection
+## Task 27 — Detect Age Outliers Using IQR
+
+**Objective:** Identify unusually low or high employee ages using the Interquartile Range (IQR) method.
+
+**Approach:**
+- Calculated the first quartile (Q1) using the 25th percentile.
+- Calculated the third quartile (Q3) using the 75th percentile.
+- Calculated the IQR as the difference between Q3 and Q1.
+- Calculated the lower and upper outlier boundaries.
+- Created a new column named `age_outlier` to identify potential outliers.
+
+**Formulas:**
+- `IQR = Q3 - Q1`
+- `Lower Boundary = Q1 - (1.5 × IQR)`
+- `Upper Boundary = Q3 + (1.5 × IQR)`
+
+**Result:**
+- `True` — age is below the lower boundary or above the upper boundary.
+- `False` — age is within the boundaries.
+
+Potential age outliers were identified without deleting or modifying the original age values.
+
+# 🔴 LEVEL 9 — Duplicate Cleaning
+## Task 28 — Find Duplicate Rows
+
+**Objective:** Identify duplicate rows in the dataset.
+
+**Approach:**
+- Used `df.duplicated()` to check for duplicate rows.
+- Compared each row with the rows that appeared before it.
+- Returned `True` for duplicate rows and `False` for non-duplicate rows.
+
+**Result:**
+- `True` — the row duplicates a previous row.
+- `False` — the row is not a duplicate.
+
+**Note:** By default, Pandas checks all columns when identifying duplicate rows. The first occurrence is marked as `False`, while subsequent identical rows are marked as `True`.
+
+Duplicate rows were identified without deleting or modifying the original dataset.
+
+# 🔴 LEVEL 9 — Duplicate Cleaning
+## Task 29 — Find Duplicate Employee IDs
+
+**Objective:** Identify employee records with duplicate employee IDs.
+
+**Approach:**
+- Checked the `employee_id` column for duplicate values.
+- Used `duplicated()` with `subset="employee_id"` to check only employee IDs.
+- Set `keep=False` to return all occurrences of duplicated IDs.
+- Filtered the DataFrame to display the matching records.
+
+**Code:**
+```python
+duplicate_employee_id = df[df.duplicated(subset="employee_id", keep=False)]
+duplicate_employee_id
+```
+
+**Result:**
+
+| Employee ID | Number of Records |
+|---|---:|
+| E015 | 2 |
+| E500 | 2 |
+| **Total** | **4** |
+
+**Conclusion:** Two employee IDs, `E015` and `E500`, appear more than once. All four corresponding records were identified for further review without deleting any data.
+
+## 🔴 LEVEL 9 — Duplicate Cleaning
+## Task 30 — Remove Exact Duplicate Rows
+
+**Objective:** Remove exact duplicate rows while preserving records with duplicate employee IDs that require further investigation.
+
+**Approach:**
+- Counted exact duplicate occurrences using `df.duplicated().sum()`.
+- Displayed all rows involved in duplication using `df.duplicated(keep=False)`.
+- Removed exact duplicate rows using `df.drop_duplicates()`.
+- Verified the result by checking for duplicates again.
+
+**Code:**
+```python
+df = df.drop_duplicates()
+
+number_of_exact_duplicate = df.duplicated().sum()
+
+print("Number of exact duplicate:", number_of_exact_duplicate)
+```
+
+**Results:**
+
+| Metric | Result |
+|---|---:|
+| Duplicate occurrences before cleaning | 1 |
+| Rows involved in duplication | 2 |
+| Duplicate occurrences after cleaning | 0 |
+
+**Duplicate Employee ID Investigation:**
+- **E500:** Two records had identical details. One duplicate copy was removed.
+- **E015:** Records had different details. Both were retained for further investigation.
+
+**Conclusion:** Exact duplicate rows were removed successfully. Records sharing an employee ID were not automatically deleted; their details were considered before deciding how to handle them.
 
 
 
