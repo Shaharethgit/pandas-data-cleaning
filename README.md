@@ -14,7 +14,7 @@
 
 ## Tasks Completed
 
-# Level 1 — Basic Structural Cleaning
+# 🟢 LEVEL 1 — Basic Structural Cleaning
 
 ## Task 1: Inspect the Dataset
 
@@ -29,6 +29,7 @@
 - Displayed the first five rows using `df.head(5)`.
 - Displayed the last five rows using `df.tail(5)`.
 
+🟢 LEVEL 1 — Basic Structural Cleaning
 ## Task 2: Clean Column Names
 
 ### Standardized column names to make them consistent and easier to use in data analysis.
@@ -49,6 +50,7 @@
 
 **Result:** All column names follow a consistent lowercase naming convention with underscores.
 
+🟢 LEVEL 1 — Basic Structural Cleaning
 ## Task 3: Remove Leading and Trailing Whitespace
 
 ### Cleaned whitespace from all string columns to ensure consistent text formatting.
@@ -68,7 +70,7 @@
 
 **Result:** Text values have consistent spacing, making the dataset cleaner for further analysis.
 
-
+🟢 LEVEL 1 — Basic Structural Cleaning
 ## Task 4: Find Completely Empty Strings
 
 ### Identified empty strings and whitespace-only strings across all columns and replaced them with `NaN`.
@@ -89,7 +91,7 @@
 
 **Result:** Empty text values are represented as missing values, making missing-data detection and handling easier.
 
-# LEVEL 2 — Missing Values
+# 🟢 LEVEL 2 — Missing Values
 ## Task 5: Identify Missing Values
 
 Identified and counted missing values in each column using Pandas.
@@ -125,6 +127,7 @@ missing_values
 
 **Result:** Identified the extent of missing data in each column before deciding how to handle it.
 
+# 🟢 LEVEL 2 — Missing Values
 ## Task 6: Calculate Missing-Value Percentages
 
 ### Calculated the number and percentage of missing values in each column to assess data completeness.
@@ -173,6 +176,7 @@ result
 
 **Result:** Created a summary table showing the missing-value count and missing percentage for each column, helping identify columns with incomplete data.
 
+# 🟢 LEVEL 2 — Missing Values
 ## Task 7: Replace Fake Missing Values
 
 ### Replaced predefined text markers representing missing data with actual `NaN` values.
@@ -196,6 +200,7 @@ df.head(10)
 
 **Result:** Standardized the specified fake missing-value markers into actual missing values, making them easier to identify and analyze using Pandas.
 
+# 🟢 LEVEL 2 — Missing Values
 ## Task 8: Decide How to Handle Missing Values
 
 ### Reviewed the missing-value handling strategy and postponed filling or removing missing values until the other cleaning tasks are completed.
@@ -204,7 +209,7 @@ df.head(10)
 
 **Planned approach:** Decide whether to fill, retain, or remove missing values based on the meaning of each column and the analysis requirements.
 
-
+# 🟢 LEVEL 2 — Missing Values
 ## Task 9: Create Missing Indicators
 
 ### Created binary indicator columns to identify missing values in selected fields.
@@ -233,7 +238,7 @@ for cl in missing_columns:
 | 32 | 0 |
 
 **Result:** Missing values are represented by `1`, while non-missing values are represented by `0`. These indicators make missing-data patterns easier to analyze.
-# Level 3 — Basic Structural Cleaning
+# 🟡 LEVEL 3 — Data Types
 ## Task 10: Convert Age to Numeric
 
 ### Converted the `age` column to a numeric data type and handled invalid values.
@@ -261,6 +266,7 @@ df["age"] = pd.to_numeric(df["age"], errors="coerce")
 
 **Result:** The `age` column contains numeric values where conversion is possible, while invalid values are represented as missing data.
 
+# 🟡 LEVEL 3 — Data Types
 ## Task 11: Convert Salary to Numeric
 
 ### Cleaned the `salary` column by removing currency symbols and thousands separators, then converted the values to a numeric data type.
@@ -284,6 +290,7 @@ df["salary"] = pd.to_numeric(df["salary"], errors="coerce")
 
 **Result:** Converted salary values into numeric data suitable for calculations and analysis. Invalid values are converted to `NaN`.
 
+# 🟡 LEVEL 3 — Data Types
 ### Task 12 — Convert Bonus to Numeric
 
 Clean the `bonus` column by removing currency symbols (`$`) and commas, then convert the values to a numeric data type using `pd.to_numeric()`.
@@ -299,7 +306,7 @@ Invalid values such as `"unknown"` are converted to `NaN` using `errors="coerce"
 | `"-200"`           | -200                |
 | `"unknown"`        | `NaN`               |
 
-
+🟡 LEVEL 3 — Data Types
 ### Task 13 — Convert Join Date
 
 Convert valid date values into Pandas datetime format using `pd.to_datetime()`.
@@ -348,6 +355,7 @@ Convert names into proper case and remove multiple spaces between words.
 df["name"] = df["name"].str.title()
 df["name"] = df["name"].str.replace(r"\s+", " ", regex=True).str.strip()
 ```
+## 🟡 LEVEL 4 — Text Cleaning
 ## Task 15 — Clean Department
 
 ### Standardize department names by converting inconsistent capitalization and naming variations into consistent department names.
@@ -379,4 +387,99 @@ df["name"] = df["name"].str.replace(r"\s+", " ", regex=True).str.strip()
 
 **Result:** Department names are standardized into consistent categories, ready for grouping and analysis.
 
+## 🟡 LEVEL 4 — Text Cleaning
+## Task 16 — Clean Gender
 
+### Standardize gender values by converting inconsistent capitalization and abbreviations into consistent categories.
+
+**Expected result:**
+
+- **`"Male"` → `"Male"`**
+- **`"MALE"` → `"Male"`**
+- **`"M"` → `"Male"`**
+- **`"m"` → `"Male"`**
+- **`"Female"` → `"Female"`**
+- **`"F"` → `"Female"`**
+- **`"female"` → `"Female"`**
+- **`"other"` → `"Other"`**
+
+**Methods used:**
+- `.str.lower()` — Converts gender values to lowercase.
+- `.map()` — Maps gender variations and abbreviations to standardized values.
+
+**Result:** Gender values are standardized into two consistent categories: `Male` and `Female`. Values not found in the mapping dictionary become `NaN`.
+
+## 🟡 LEVEL 4 — Text Cleaning
+## Task 17 — Clean Status
+
+**Objective:** Standardize inconsistent status values into consistent categories.
+
+**Values handled:**
+- `Active`, `active`, `ACTIVE`, `A` → `Active`
+- `Inactive`, `inactive`, `INACTIVE`, `I` → `Inactive`
+- `in active` → `Inactive`
+
+**Approach:**
+- Converted status values to lowercase for consistent matching.
+- Used a dictionary with `map()` to standardize status values.
+
+**Result:** Status values are standardized into two consistent categories: `Active` and `Inactive`.
+
+## 🟡 LEVEL 5 — Text Cleaning
+## Task 18 — Clean Email Whitespace
+
+**Objective:** Remove leading and trailing whitespace from email addresses.
+
+**Code:**
+```python
+df["email"] = df["email"].str.strip()
+```
+
+**Example:**
+
+| Before | After |
+|---|---|
+| `" mary.johnson@gmail.com "` | `"mary.johnson@gmail.com"` |
+
+**Result:** Email addresses are cleaned by removing unnecessary whitespace from the beginning and end.
+
+## 🟡 LEVEL 5 — Text Cleaning
+## Task 19 — Validate Email Addresses
+
+**Objective:** Identify email addresses that do not follow the expected format without deleting them.
+
+**Expected format:**
+- `something@domain.extension`
+
+**Examples of invalid emails:**
+- `sarakhan@gmail`
+- `james.miller@gmail`
+- `unknown`
+
+**Approach:**
+- Used a regular expression (`regex`) to check the email format.
+- Created a new `email_valid` column.
+- Marked emails that match the pattern as `True` and invalid formats as `False`.
+- Retained the original email values for further review.
+
+**Result:** Email addresses with invalid formats can be identified without immediately deleting them.
+
+## 🟡 LEVEL 5 — Text Cleaning
+## Task 20 — Create Email Domain
+
+**Objective:** Extract the domain from each email address and store it in a new column named `email_domain`.
+
+**Example:**
+
+| Email | Email Domain |
+|---|---|
+| `john.smith@gmail.com` | `gmail.com` |
+| `mary@yahoo.com` | `yahoo.com` |
+| `user@company.com` | `company.com` |
+
+**Approach:**
+- Used a regular expression to extract the text after `@`.
+- Created a new column named `email_domain`.
+- Retained missing email values as missing.
+
+**Result:** Email domains are extracted into a separate column for further analysis.
