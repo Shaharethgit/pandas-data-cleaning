@@ -483,3 +483,132 @@ df["email"] = df["email"].str.strip()
 - Retained missing email values as missing.
 
 **Result:** Email domains are extracted into a separate column for further analysis.
+
+## 🟠 LEVEL 6 — Phone Cleaning
+## Task 21 — Remove Phone Formatting
+
+**Objective:** Standardize phone numbers by removing spaces, hyphens, and other non-digit characters.
+
+**Code:**
+```python
+df["phone"] = df["phone"].str.replace(r"\D", "", regex=True)
+```
+
+**Example:**
+
+| Before | After |
+|---|---|
+| `+974 5555 1111` | `97455551111` |
+| `974-5555-2222` | `97455552222` |
+| `974 5555 5555` | `97455555555` |
+| `+974-5555-8888` | `97455558888` |
+
+**Approach:**
+- Used a regular expression (`\D`) to identify non-digit characters.
+- Removed all non-digit characters using `.str.replace()`.
+- Preserved the country code digits.
+
+**Result:** Phone numbers are standardized into digits-only format.
+
+## 🟠 LEVEL 6 — Phone Cleaning
+## Task 22 — Validate Qatar Phone Numbers
+
+**Objective:** Identify phone numbers that match the expected Qatar phone number format.
+
+**Expected format:** `974XXXXXXXX` — the country code `974` followed by exactly 8 digits.
+
+**Code:**
+```python
+df["phone_valid"] = df["phone"].str.fullmatch(r"974\d{8}", na=False)
+```
+
+**Approach:**
+- Used a regular expression to check the phone number format.
+- Used `.str.fullmatch()` to validate the entire phone number.
+- Created a new column named `phone_valid`.
+- Marked matching phone numbers as `True` and non-matching or missing values as `False`.
+
+**Result:** Phone numbers that do not follow the expected format can be identified without deleting them.
+
+## 🟠 LEVEL 7 — Numeric Validation
+## Task 23 — Find invalid ages
+
+**Objective:** Identify employee ages outside the valid age range of 18–65.
+
+**Code:**
+```python
+df["age_valid"] = df["age"].between(18, 65, inclusive="both")
+```
+
+**Examples:**
+
+| Age | age_valid |
+|---:|:---|
+| 150 | False |
+| -5 | False |
+| 25 | True |
+| 65 | True |
+
+**Approach:**
+- Used Pandas `between()` to check whether ages fall within the valid range.
+- Created a new column named `age_valid`.
+- Marked ages within the range as `True` and ages outside it as `False`.
+
+**Result:** Invalid ages are identified without deleting the original records.
+
+## 🟠 LEVEL 7 — Numeric Validation
+## Task 24 — Find Invalid Salaries
+
+**Objective:** Identify salaries that do not meet the valid salary condition.
+
+**Valid salary condition:** Salary must be greater than `0`.
+
+**Code:**
+```python
+df["salary_valid"] = df["salary"] > 0
+```
+
+**Examples:**
+
+| Salary | salary_valid |
+|---:|:---|
+| -5000 | False |
+| 5000 | True |
+| 0 | False |
+
+**Approach:**
+- Compared each salary with zero.
+- Created a new column named `salary_valid`.
+- Marked salaries greater than zero as `True` and salaries equal to or below zero as `False`.
+
+**Result:** Invalid salaries are identified without modifying or deleting the original values.
+
+## 🟠 LEVEL 7 — Numeric Validation
+## Task 25 — Find Invalid Bonuses
+
+**Objective:** Identify bonus values that do not meet the valid bonus condition.
+
+**Valid bonus condition:** Bonus must be greater than or equal to `0`.
+
+**Code:**
+```python
+df["bonus_valid"] = df["bonus"] >= 0
+```
+
+**Examples:**
+
+| Bonus | bonus_valid |
+|---:|:---|
+| -200 | False |
+| 500 | True |
+| 0 | True |
+
+**Approach:**
+- Compared each bonus value with zero.
+- Created a new column named `bonus_valid`.
+- Marked non-negative bonuses as `True` and negative bonuses as `False`.
+
+**Result:** Invalid bonus values are identified without modifying or deleting the original values.
+
+
+
