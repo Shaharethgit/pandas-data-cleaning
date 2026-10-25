@@ -762,18 +762,6 @@ print("Number of exact duplicate:", number_of_exact_duplicate)
 - Used `errors="coerce"` to convert invalid or unrecognized values into `NaT`.
 - Created `join_date_valid` to identify successfully converted dates.
 
-**Code:**
-```python
-df["join_date"] = pd.to_datetime(
-    df["join_date"],
-    errors="coerce",
-    format="mixed",
-    dayfirst=True
-)
-
-df["join_date_valid"] = df["join_date"].notna()
-
-
 ## 🔴 LEVEL 10 — Advanced Cleaning
 ## Task 33 — Detect Future Join Dates
 
