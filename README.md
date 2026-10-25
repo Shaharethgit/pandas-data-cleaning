@@ -911,3 +911,37 @@ df.head(10)
 - Displayed employee values, validation results, and review status together to inspect the results.
 
 **Result:** Employees who pass all six validation checks are marked `Good`. Employees
+
+## 🟣LEVEL 12 — Complete Data Quality Report
+## Task 38 — Create a Complete Data Quality Report
+
+**Objective:** Generate a consolidated data quality report for the employee dataset.
+
+**Report Metrics:**
+
+| Metric | Description |
+|---|---|
+| Missing | Number of missing values in each column |
+| Invalid | Number of values failing the available validation checks |
+| Duplicates | Number of repeated values within each column |
+
+**Approach:**
+- Selected 11 original employee data columns.
+- Used `isna().sum()` to calculate missing-value counts.
+- Used existing validation flags to calculate invalid counts for age, salary, bonus, email, phone, and join date.
+- Used `duplicated().sum()` to count repeated values within each column.
+- Combined the metrics into a single summary table.
+
+**Important Note:** The invalid counts for `name`, `department`, `gender`, and `status` are zero because separate validation checks have not been defined for these columns. This does not necessarily mean those columns contain no invalid values.
+
+**Conclusion:** The report provides a consolidated overview of missing values, validated invalid values, and repeated values, helping identify areas that may require further data cleaning.
+
+## 🔵Final Master Task — Export Cleaned Data to Excel
+
+**Objective:** Export the final cleaned DataFrame to Excel.
+
+**Approach:**
+- Used Pandas `to_excel()` to export `clean_df`.
+- Set `index=False` to exclude the DataFrame index.
+
+**Output:** `cleaned_employee_data.xlsx`
