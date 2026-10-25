@@ -793,21 +793,6 @@ df.head()
 
 **Conclusion:** Future join dates were identified using the current date. Records flagged as `True` can be reviewed to determine whether they are valid future hires or data-entry errors.
 
-df.head(10)
-```
-
-**Expected Results:**
-
-| Input Value | Converted Value | `join_date_valid` |
-|---|---|---|
-| `2020-01-15` | `2020-01-15` | `True` |
-| `15/02/2021` | `2021-02-15` | `True` |
-| `March 10 2020` | `2020-03-10` | `True` |
-| `2020/13/01` | `2020-01-13` | `True` |
-| `invalid` | `NaT` | `False` |
-
-**Conclusion:** Date values were converted into datetime format where possible. Invalid or unrecognized dates were represented as `NaT` and marked `False` in `join_date_valid` for further review.
-
 ## 🔴 LEVEL 10 — Advanced Cleaning
 ## Task 34 — Standardize All Categorical Columns
 
