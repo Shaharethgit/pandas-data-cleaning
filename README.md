@@ -511,24 +511,39 @@ df["phone"] = df["phone"].str.replace(r"\D", "", regex=True)
 **Result:** Phone numbers are standardized into digits-only format.
 
 ## 🟠 LEVEL 6 — Phone Cleaning
-## Task 22 — Validate Qatar Phone Numbers
+## Task 22 — Standardize Qatar Phone Numbers
 
-**Objective:** Identify phone numbers that match the expected Qatar phone number format.
+**Objective:** Standardize Qatar phone numbers by adding the country code `974` to 8-digit phone numbers and validating the expected format.
 
-**Expected format:** `974XXXXXXXX` — the country code `974` followed by exactly 8 digits.
+**Approach:**
+- Identified phone numbers containing exactly 8 digits.
+- Added the country code `974` to those numbers.
+- Used `str.fullmatch()` with a regular expression to validate phone numbers.
+- Created a new column named `phone_valid` to identify valid and invalid numbers.
 
 **Code:**
 ```python
-df["phone_valid"] = df["phone"].str.fullmatch(r"974\d{8}", na=False)
+df.loc[df["phone"].str.len() == 8, "phone"] = (
+    '974' + df.loc[df["phone"].str.len() == 8, "phone"]
+)
+
+df["phone_valid"] = df["phone"].str.fullmatch(
+    r"974\d{8}", na=False
+)
 ```
 
-**Approach:**
-- Used a regular expression to check the phone number format.
-- Used `.str.fullmatch()` to validate the entire phone number.
-- Created a new column named `phone_valid`.
-- Marked matching phone numbers as `True` and non-matching or missing values as `False`.
+**Expected Results:**
 
-**Result:** Phone numbers that do not follow the expected format can be identified without deleting them.
+| Original Phone | Standardized Phone | `phone_valid` |
+|---|---|---|
+| `55551111` | `97455551111` | `True` |
+| `97455551111` | `97455551111` | `True` |
+| `9745555222` | `9745555222` | `False` |
+| `12345678901` | `12345678901` | `False` |
+
+**Conclusion:** Eight-digit phone numbers were standardized by adding the Qatar country code. The `phone_valid` column identifies numbers that match the expected format. Invalid phone numbers were retained for further review rather than deleted.
+
+**Note:** This validation checks the number's format only; it does not confirm whether the phone number is active or assigned.
 
 ## 🟠 LEVEL 7 — Numeric Validation
 ## Task 23 — Find invalid ages
@@ -735,5 +750,164 @@ print("Number of exact duplicate:", number_of_exact_duplicate)
 
 **Conclusion:** Exact duplicate rows were removed successfully. Records sharing an employee ID were not automatically deleted; their details were considered before deciding how to handle them.
 
+## 🔴 LEVEL 10 — Advanced Cleaning
+### Task 31 — Clean Invalid Dates
+
+**Objective:** Convert mixed date formats into datetime values and identify invalid dates.
+
+**Approach:**
+- Used `pd.to_datetime()` to convert the `join_date` column into datetime format.
+- Used `format="mixed"` to handle different date formats.
+- Used `dayfirst=True` to interpret dates with the day before the month where applicable.
+- Used `errors="coerce"` to convert invalid or unrecognized values into `NaT`.
+- Created `join_date_valid` to identify successfully converted dates.
+
+**Code:**
+```python
+df["join_date"] = pd.to_datetime(
+    df["join_date"],
+    errors="coerce",
+    format="mixed",
+    dayfirst=True
+)
+
+df["join_date_valid"] = df["join_date"].notna()
 
 
+## 🔴 LEVEL 10 — Advanced Cleaning
+## Task 33 — Detect Future Join Dates
+
+**Objective:** Identify employee records with join dates later than the current date.
+
+**Approach:**
+- Retrieved today's date using `pd.Timestamp.today().normalize()`.
+- Compared each employee's `join_date` with today's date.
+- Created a new column named `future_join_date` to flag future dates.
+
+**Code:**
+```python
+today = pd.Timestamp.today().normalize()
+print(today)
+
+df["future_join_date"] = df["join_date"] > today
+
+df.head()
+```
+
+**Expected Results:**
+
+| Join Date | `future_join_date` |
+|---|---|
+| A date before today | `False` |
+| Today's date | `False` |
+| A date after today | `True` |
+| Missing date (`NaT`) | `False` |
+
+**Conclusion:** Future join dates were identified using the current date. Records flagged as `True` can be reviewed to determine whether they are valid future hires or data-entry errors.
+
+df.head(10)
+```
+
+**Expected Results:**
+
+| Input Value | Converted Value | `join_date_valid` |
+|---|---|---|
+| `2020-01-15` | `2020-01-15` | `True` |
+| `15/02/2021` | `2021-02-15` | `True` |
+| `March 10 2020` | `2020-03-10` | `True` |
+| `2020/13/01` | `2020-01-13` | `True` |
+| `invalid` | `NaT` | `False` |
+
+**Conclusion:** Date values were converted into datetime format where possible. Invalid or unrecognized dates were represented as `NaT` and marked `False` in `join_date_valid` for further review.
+
+## 🔴 LEVEL 10 — Advanced Cleaning
+## Task 34 — Standardize All Categorical Columns
+
+**Objective:** Standardize categorical columns by retaining approved values and replacing unexpected values with `NaN`.
+
+**Allowed Values:**
+
+| Column | Allowed Values |
+|---|---|
+| `department` | IT, HR, Sales, Finance, Operations, Marketing |
+| `gender` | Male, Female, Other |
+| `status` | Active, Inactive |
+
+**Approach:**
+- Used `isin()` to check whether values belong to the approved categories.
+- Used `where()` to retain allowed values.
+- Replaced values outside the approved categories with `NaN`.
+
+**Conclusion:** The `department`, `gender`, and `status` columns now follow their defined allowed values. Unexpected categories are marked as missing for further review.
+
+
+## 🔴 LEVEL 11 — Advanced Conditional Cleaning
+## Task 35 — Create Salary Band
+
+**Objective:** Categorize employee salaries into `Low`, `Medium`, and `High` bands.
+
+**Salary Band Rules:**
+
+| Salary Range | Salary Band |
+|---|---|
+| Below 6000 | Low |
+| 6000–7999 | Medium |
+| 8000 and above | High |
+
+**Approach:**
+- Created conditions using comparison operators and `between()`.
+- Used `np.select()` to assign labels based on the conditions.
+- Added the results to a new column named `salary_band`.
+
+**Conclusion:** Each valid salary is assigned to its corresponding salary band, making salary groups easier to analyze and compare.
+
+## 🔴 LEVEL 11 — Advanced Conditional Cleaning
+## Task 36 — Create Employee Age Group
+
+**Objective:** Categorize employees into age groups to support workforce demographic analysis.
+
+**Age Group Rules:**
+
+| Age Range | Age Group |
+|---|---|
+| 18–25 | Young |
+| 26–35 | Early Career |
+| 36–50 | Mid Career |
+| 51–65 | Senior |
+
+**Approach:**
+- Used `pd.cut()` to divide ages into defined intervals.
+- Assigned descriptive labels to each age group.
+- Stored the results in a new column named `age_group`.
+
+**Result:** Employees aged 18–65 are assigned to the appropriate age group. Ages below 18, above 65, and missing ages remain `NaN`.
+
+**Conclusion:** Age grouping makes it easier to summarize and compare employee demographics.
+
+## 🔴 LEVEL 11 — Advanced Conditional Cleaning
+## Task 37 — Create Employee Review Status
+
+**Objective:** Assign an overall review status to each employee based on data validation results.
+
+**Review Rules:**
+
+| Condition | Review Status |
+|---|---|
+| All six validation checks pass | Good |
+| One or more validation checks fail | Needs Review |
+
+**Validation Columns:**
+- `age_valid`
+- `salary_valid`
+- `bonus_valid`
+- `email_valid`
+- `phone_valid`
+- `join_date_valid`
+
+**Approach:**
+- Selected the six validation columns.
+- Used `.all(axis=1)` to check whether all six validations pass for each employee.
+- Used `np.where()` to assign `Good` when all checks pass and `Needs Review` otherwise.
+- Displayed employee values, validation results, and review status together to inspect the results.
+
+**Result:** Employees who pass all six validation checks are marked `Good`. Employees
