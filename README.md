@@ -760,6 +760,21 @@ print("Number of exact duplicate:", number_of_exact_duplicate)
 - Created `join_date_valid` to identify successfully converted dates.
 
 ## 🔴 LEVEL 10 — Advanced Cleaning
+## 🟠 Task 32 — Calculate Employee Tenure
+
+**Objective:** Calculate employee tenure in years based on the joining date.
+
+**Approach:**
+- Used the current date as the calculation reference.
+- Calculated the difference between the current date and each employee's `join_date`.
+- Converted the difference in days to years using `365.25`.
+- Rounded the results to one decimal place.
+
+**Output:** Created a new column, `tenure_years`, representing each employee's tenure in years.
+
+**Note:** Missing joining dates result in missing tenure values. The calculated tenure changes when the code is executed on a different date.
+
+## 🔴 LEVEL 10 — Advanced Cleaning
 ## Task 33 — Detect Future Join Dates
 
 **Objective:** Identify employee records with join dates later than the current date.
