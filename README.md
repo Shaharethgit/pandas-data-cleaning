@@ -316,7 +316,6 @@ Invalid values are converted to `NaT` using `errors="coerce"`.
 | `"2020-01-15"` | `2020-01-15` |
 | `"15/02/2021"` | `2021-02-15` |
 | `"invalid"` | `NaT` |
-| `"2020/13/01"` | `NaT` |
 | `"N/A"` | `NaT` |
 
 **Methods Used:**
