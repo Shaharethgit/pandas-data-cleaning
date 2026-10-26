@@ -909,6 +909,18 @@ df.head()
 
 **Conclusion:** The report provides a consolidated overview of missing values, validated invalid values, and repeated values, helping identify areas that may require further data cleaning.
 
+## 🟢 Bonus Task — Handle Missing Values
+
+**Objective:** Handle missing values using appropriate imputation strategies.
+
+**Approach:**
+- Replaced missing bonus values with `0`, based on the assumption that missing means no bonus.
+- Filled missing age and salary values using their respective medians.
+- Filled missing department, gender, and status values using the mode when available.
+- Added a check to avoid errors when a categorical column contains no valid values.
+
+**Note:** Imputation strategies were selected based on the assumed business meaning of the data. In real projects, these assumptions should be verified before replacing missing values.
+
 ## 🔵Final Master Task — Export Cleaned Data to Excel
 
 **Objective:** Export the final cleaned DataFrame to Excel.
