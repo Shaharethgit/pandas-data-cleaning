@@ -12,9 +12,7 @@
 - Excel
 - Git and GitHub
 
-## Tasks Completed
-
-# 🟢 LEVEL 1 — Basic Structural Cleaning
+## 🟢 LEVEL 1 — Basic Structural Cleaning
 
 ## Task 1: Inspect the Dataset
 
@@ -29,7 +27,7 @@
 - Displayed the first five rows using `df.head(5)`.
 - Displayed the last five rows using `df.tail(5)`.
 
-🟢 LEVEL 1 — Basic Structural Cleaning
+## 🟢 LEVEL 1 — Basic Structural Cleaning
 ## Task 2: Clean Column Names
 
 ### Standardized column names to make them consistent and easier to use in data analysis.
@@ -50,7 +48,7 @@
 
 **Result:** All column names follow a consistent lowercase naming convention with underscores.
 
-🟢 LEVEL 1 — Basic Structural Cleaning
+## 🟢 LEVEL 1 — Basic Structural Cleaning
 ## Task 3: Remove Leading and Trailing Whitespace
 
 ### Cleaned whitespace from all string columns to ensure consistent text formatting.
@@ -70,7 +68,7 @@
 
 **Result:** Text values have consistent spacing, making the dataset cleaner for further analysis.
 
-🟢 LEVEL 1 — Basic Structural Cleaning
+## 🟢 LEVEL 1 — Basic Structural Cleaning
 ## Task 4: Find Completely Empty Strings
 
 ### Identified empty strings and whitespace-only strings across all columns and replaced them with `NaN`.
@@ -91,7 +89,7 @@
 
 **Result:** Empty text values are represented as missing values, making missing-data detection and handling easier.
 
-# 🟢 LEVEL 2 — Missing Values
+## 🟢 LEVEL 2 — Missing Values
 ## Task 5: Identify Missing Values
 
 Identified and counted missing values in each column using Pandas.
@@ -127,7 +125,7 @@ missing_values
 
 **Result:** Identified the extent of missing data in each column before deciding how to handle it.
 
-# 🟢 LEVEL 2 — Missing Values
+## 🟢 LEVEL 2 — Missing Values
 ## Task 6: Calculate Missing-Value Percentages
 
 ### Calculated the number and percentage of missing values in each column to assess data completeness.
@@ -176,7 +174,7 @@ result
 
 **Result:** Created a summary table showing the missing-value count and missing percentage for each column, helping identify columns with incomplete data.
 
-# 🟢 LEVEL 2 — Missing Values
+## 🟢 LEVEL 2 — Missing Values
 ## Task 7: Replace Fake Missing Values
 
 ### Replaced predefined text markers representing missing data with actual `NaN` values.
@@ -200,7 +198,7 @@ df.head(10)
 
 **Result:** Standardized the specified fake missing-value markers into actual missing values, making them easier to identify and analyze using Pandas.
 
-# 🟢 LEVEL 2 — Missing Values
+## 🟢 LEVEL 2 — Missing Values
 ## Task 8: Decide How to Handle Missing Values
 
 ### Reviewed the missing-value handling strategy and postponed filling or removing missing values until the other cleaning tasks are completed.
@@ -209,7 +207,7 @@ df.head(10)
 
 **Planned approach:** Decide whether to fill, retain, or remove missing values based on the meaning of each column and the analysis requirements.
 
-# 🟢 LEVEL 2 — Missing Values
+## 🟢 LEVEL 2 — Missing Values
 ## Task 9: Create Missing Indicators
 
 ### Created binary indicator columns to identify missing values in selected fields.
@@ -238,7 +236,7 @@ for cl in missing_columns:
 | 32 | 0 |
 
 **Result:** Missing values are represented by `1`, while non-missing values are represented by `0`. These indicators make missing-data patterns easier to analyze.
-# 🟡 LEVEL 3 — Data Types
+## 🟡 LEVEL 3 — Data Types
 ## Task 10: Convert Age to Numeric
 
 ### Converted the `age` column to a numeric data type and handled invalid values.
@@ -266,7 +264,7 @@ df["age"] = pd.to_numeric(df["age"], errors="coerce")
 
 **Result:** The `age` column contains numeric values where conversion is possible, while invalid values are represented as missing data.
 
-# 🟡 LEVEL 3 — Data Types
+## 🟡 LEVEL 3 — Data Types
 ## Task 11: Convert Salary to Numeric
 
 ### Cleaned the `salary` column by removing currency symbols and thousands separators, then converted the values to a numeric data type.
@@ -290,7 +288,7 @@ df["salary"] = pd.to_numeric(df["salary"], errors="coerce")
 
 **Result:** Converted salary values into numeric data suitable for calculations and analysis. Invalid values are converted to `NaN`.
 
-# 🟡 LEVEL 3 — Data Types
+## 🟡 LEVEL 3 — Data Types
 ### Task 12 — Convert Bonus to Numeric
 
 Clean the `bonus` column by removing currency symbols (`$`) and commas, then convert the values to a numeric data type using `pd.to_numeric()`.
@@ -306,8 +304,8 @@ Invalid values such as `"unknown"` are converted to `NaN` using `errors="coerce"
 | `"-200"`           | -200                |
 | `"unknown"`        | `NaN`               |
 
-🟡 LEVEL 3 — Data Types
-### Task 13 — Convert Join Date
+## 🟡 LEVEL 3 — Data Types
+## Task 13 — Convert Join Date
 
 Convert valid date values into Pandas datetime format using `pd.to_datetime()`.
 
